@@ -1,6 +1,7 @@
 // Libs
 #include "HttpClient.h"
 #include "JsonParser.h"
+#include "neopixel.h"
 using namespace ArduinoJson::Parser;
 
 
