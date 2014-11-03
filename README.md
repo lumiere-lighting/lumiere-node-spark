@@ -16,5 +16,7 @@ Not quite sure about the way the Spark manages libraries.  A `spark.include` fil
 
 1. We manage and get thrid-party libraries with `make dependencies`
 
-https://www.adafruit.com/product/1426
-WS2812
+## Helpful links
+
+* If you need to [factory reset](http://docs.spark.io/connect/#appendix-factory-reset).
+* To [manually set the Wifi credentials vis USB](http://docs.spark.io/connect/#connecting-your-core-connect-over-usb), in case the Spark App is not connecting.

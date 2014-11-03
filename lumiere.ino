@@ -7,14 +7,27 @@ using namespace ArduinoJson::Parser;
 
 // Main configuration here
 #define PIXEL_PIN D2
+// Limit seems to be over 800
 #define PIXEL_COUNT 8
+// Type of LEDs
 #define PIXEL_TYPE WS2812B
+// Global brightness of the lights
+#define BRIGHTNESS 50
+// How long should the animation run
+#define ANIMATION_TIME 1000
+// Poll time (time between HTTP requests)
+#define POLL_TIME 5000
+// Color input limt for API
+//#define INPUT_LIMIT PIXEL_COUNT
+#define INPUT_LIMIT 15
 
 
-// General vars
+// Global vars
 JsonParser<64> parser;
-unsigned int wait_time = 7000;
-String api_path = "/api/colors?format=hex0&noInput=true&limit=" + String(PIXEL_COUNT);
+String api_path = "/api/colors?format=rgb&noInput=true&limit=" + String(INPUT_LIMIT);
+String current_id;
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);
+double animation_interval = ANIMATION_TIME / PIXEL_COUNT;
 
 // HTTP requests
 // NOTE: Always terminate headers with NULL
@@ -31,7 +44,8 @@ http_header_t headers[] = {
 
 void setup() {
   Serial.begin(9600);
-
+  strip.begin();
+  strip.setBrightness(BRIGHTNESS);
 }
 
 void loop() {
@@ -62,12 +76,42 @@ void loop() {
         char * char_id = parsed["_id"];
         String id = String(char_id);
 
-        //Serial.println(id);
+        Serial.println(id);
+        // If different ID, change lights
+        if (id != current_id) {
+          current_id = id;
+
+          Serial.println(current_id);
+
+          // The sizeof does not work for json array so we work around it
+          // a bit
+          int color_set_count = 0;
+          for (int i = 0; i < PIXEL_COUNT; i++) {
+            if (parsed["colors"][i].success()) {
+              color_set_count++;
+            }
+          }
+
+          // Reset lights
+          for (int j = PIXEL_COUNT - 1; j >= 0; j--) {
+            strip.setPixelColor(j, strip.Color(0, 0, 0));
+            delay(animation_interval);
+            strip.show();
+          }
+
+          // Change lights
+          for (int j = 0; j < PIXEL_COUNT; j++) {
+            JsonValue c = parsed["colors"][j % color_set_count];
+            strip.setPixelColor(j, strip.Color(int(double(c[0])), int(double(c[1])), int(double(c[2]))));
+            delay(animation_interval);
+            strip.show();
+          }
+        }
       }
     }
   }
 
 
   // Do again
-  delay(wait_time);
+  delay(POLL_TIME);
 }
