@@ -5,21 +5,34 @@
 using namespace ArduinoJson::Parser;
 
 
-// Main configuration here
+/**********************
+ *
+ * Main configuration here
+ *
+ **********************/
+
+// Data pin for lights
 #define PIXEL_PIN D2
 // Limit seems to be over 800
 #define PIXEL_COUNT 8
 // Type of LEDs
 #define PIXEL_TYPE WS2812B
-// Global brightness of the lights
+// Global brightness of the lights (0 - 255).  More brightness
+// will mean more power usage
 #define BRIGHTNESS 50
 // How long should the animation run
 #define ANIMATION_TIME 1000
 // Poll time (time between HTTP requests)
-#define POLL_TIME 5000
+#define POLL_TIME 3000
 // Color input limt for API
 //#define INPUT_LIMIT PIXEL_COUNT
 #define INPUT_LIMIT 15
+// Host of server
+#define API_HOST "lumiere.lighting"
+// Port of server
+#define API_PORT 80
+
+
 
 
 // Global vars
@@ -43,7 +56,7 @@ http_header_t headers[] = {
 
 
 void setup() {
-  Serial.begin(9600);
+  //Serial.begin(9600);
   strip.begin();
   strip.setBrightness(BRIGHTNESS);
 }
@@ -51,14 +64,17 @@ void setup() {
 void loop() {
 
   // Make request
-  request.hostname = "lumiere.lighting";
-  request.port = 80;
+  request.hostname = API_HOST;
+  request.port = API_PORT;
   request.path = api_path;
   http.get(request, response, headers);
 
-  // Ensure it is good
-  if (response.status == 200) {
-    Serial.println(response.body);
+  // Ensure it is good.
+  // This is kind of hacky.  Meteor will response
+  // with an HTML page when error, but not necessarily a bad response status
+  // if (response.status == 200 && response.body.indexOf("{") < 10 && response.body.indexOf("{") >= 0)  {
+  if (response.status == 200)  {
+    //Serial.println(response.body);
 
     // Convert to char array
     int str_len = response.body.length() + 1;
@@ -76,12 +92,9 @@ void loop() {
         char * char_id = parsed["_id"];
         String id = String(char_id);
 
-        Serial.println(id);
         // If different ID, change lights
         if (id != current_id) {
           current_id = id;
-
-          Serial.println(current_id);
 
           // The sizeof does not work for json array so we work around it
           // a bit
