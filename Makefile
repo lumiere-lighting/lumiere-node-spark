@@ -1,13 +1,14 @@
 all: compile
 
+# make flash spark=zSpark
 flash:
-	spark cloud flash zSpark .
+	spark cloud flash $(spark) .
 
 # Requires dfu-util (brew install dfu-util)
 # and http://docs.spark.io/connect/#appendix-dfu-mode-device-firmware-upgrade
 flash_usb:
 	spark compile . lumiere.bin
-	spark flash zSpark --usb lumiere.bin
+	spark flash $(spark) --usb lumiere.bin
 
 compile: clean
 	spark compile . lumiere.bin

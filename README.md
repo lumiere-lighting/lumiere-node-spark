@@ -1,14 +1,16 @@
 # Lumiere with SparkCore
 
-Lumiere node using the Spark Core.
+Lumiere node using the Spark Core.  Currently, only [NeoPixel lights](https://www.adafruit.com/categories/168) are supported with the existing code base; make sure to read through the [NeoPixel guide](https://learn.adafruit.com/adafruit-neopixel-uberguide/overview) when using these lights.
+
+## Configure
+
+Update `lumiere.ino` with the relevant configuration values.  This should be in a non-committed header file eventually.
 
 ## Build and flash
 
-Note that these command use the Spark command line interface and assumes the first Spark found, so if you have more than one Spark connected, then you'll have to manually compile and flash.
-
-1. You can compile with: `make compile`
-1. To flash the Spark via the internet: `make flash`
-1. To flash the Spark via the USB, though this involves installing other software: `make flash_usb`
+* You can compile with: `make compile`
+* To flash the Spark via the internet: `make flash spark=YOUR_SPARK_ID`
+* To flash the Spark via the USB, though this involves installing other software: `make flash_usb spark=YOUR_SPARK_ID`
 
 ## Package management
 
@@ -16,7 +18,21 @@ Not quite sure about the way the Spark manages libraries.  A `spark.include` fil
 
 1. We manage and get thrid-party libraries with `make dependencies`
 
-## Helpful links
+## Helpful Spark links
 
 * If you need to [factory reset](http://docs.spark.io/connect/#appendix-factory-reset).
-* To [manually set the Wifi credentials vis USB](http://docs.spark.io/connect/#connecting-your-core-connect-over-usb), in case the Spark App is not connecting.
+* To [manually set the Wifi credentials via USB](http://docs.spark.io/connect/#connecting-your-core-connect-over-usb), in case the Spark App is not connecting.
+
+## Connecting lights
+
+### Spark and NeoPixels powered by Spark USB
+
+The Spark outputs 3.3V, and the NeoPixel can handle this if both power and data are the same.  But, this will only work with a small number of pixels, like [8](https://www.adafruit.com/product/1426).
+
+[![Spark and NeoPixels powered by Spark diagram](https://raw.githubusercontent.com/lumiere-lighting/lumiere-node-spark/master/diagrams/spark-neopixel-usb.png)](https://raw.githubusercontent.com/lumiere-lighting/lumiere-node-spark/master/diagrams/spark-neopixel-usb.png)
+
+### Spark and NeoPixels powered by external 5V
+
+To power a signifcant amount of lights, you'll need more power (do make sure to read the [NeoPixel guide](https://learn.adafruit.com/adafruit-neopixel-uberguide/overview)).  But, the Spark outputs 3.3V on the data pin and NeoPixels want 5V so we have to convert.  The [74AHCT125 quad level-shifter](https://www.adafruit.com/product/1787) is a great option.
+
+[![Spark and NeoPixels powered by 5V external diagram](https://raw.githubusercontent.com/lumiere-lighting/lumiere-node-spark/master/diagrams/spark-neopixel-external-5v.png)](https://raw.githubusercontent.com/lumiere-lighting/lumiere-node-spark/master/diagrams/spark-neopixel-external-5v.png)
