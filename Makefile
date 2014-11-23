@@ -10,6 +10,8 @@ flash_usb:
 	spark compile . lumiere.bin
 	spark flash $(spark) --usb lumiere.bin
 
+# Compiling actually uses the Spark infrastructure
+# and requires an Internet connection
 compile: clean
 	spark compile . lumiere.bin
 

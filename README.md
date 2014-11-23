@@ -1,6 +1,8 @@
 # Lumiere with SparkCore
 
-Lumiere node using the Spark Core.  Currently, only [NeoPixel lights](https://www.adafruit.com/categories/168) are supported with the existing code base; make sure to read through the [NeoPixel guide](https://learn.adafruit.com/adafruit-neopixel-uberguide/overview) when using these lights.
+Lumiere node using the Spark Core.
+
+Currently, only [NeoPixel lights](https://www.adafruit.com/categories/168) are supported with the existing code base; make sure to read through the [NeoPixel guide](https://learn.adafruit.com/adafruit-neopixel-uberguide/overview) when using these lights.
 
 ## Install
 
@@ -17,7 +19,7 @@ Update `lumiere.ino` with the relevant configuration values, overall this should
 
 ### Compile and flash
 
-* You can compile with: `make compile`
+* You can compile with the following, though note that this uses the default Spark infrastructure and requires the Internet: `make compile`
 * To flash the Spark via the internet: `make flash spark=YOUR_SPARK_ID`
 
 ## Package management
