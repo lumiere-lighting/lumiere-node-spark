@@ -2,15 +2,23 @@
 
 Lumiere node using the Spark Core.  Currently, only [NeoPixel lights](https://www.adafruit.com/categories/168) are supported with the existing code base; make sure to read through the [NeoPixel guide](https://learn.adafruit.com/adafruit-neopixel-uberguide/overview) when using these lights.
 
-## Configure
+## Install
 
-Update `lumiere.ino` with the relevant configuration values.  This should be in a non-committed header file eventually.
+### Setup Spark
 
-## Build and flash
+1. [Setup your Spark](http://docs.spark.io/start/).
+1. Install the [`spark` command line](http://docs.spark.io/cli/) utility with: `npm install -g spark-cli`
+
+### Configure code
+
+Update `lumiere.ino` with the relevant configuration values, overall this should just be the number of lights you have.
+
+*This should be in a non-committed config header file eventually*.
+
+### Compile and flash
 
 * You can compile with: `make compile`
 * To flash the Spark via the internet: `make flash spark=YOUR_SPARK_ID`
-* To flash the Spark via the USB, though this involves installing other software: `make flash_usb spark=YOUR_SPARK_ID`
 
 ## Package management
 
