@@ -22,6 +22,12 @@ Update `lumiere.ino` with the relevant configuration values, overall this should
 * You can compile with the following, though note that this uses the default Spark infrastructure and requires the Internet: `make compile`
 * To flash the Spark via the internet: `make flash spark=YOUR_SPARK_ID`
 
+### Monitoring
+
+If the Spark is hooked up via USB, you can monitor the serial on the command line.
+
+* `make monitor spark=YOUR_SPARK_ID`
+
 ## Package management
 
 Not quite sure about the way the Spark manages libraries.  A `spark.include` file is needed to make references to files to include, but then they are are referenced in the application by just their file name?

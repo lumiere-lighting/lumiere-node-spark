@@ -1,2 +1,5 @@
 README.md
 .git
+.tmp
+diagrams
+Makefile

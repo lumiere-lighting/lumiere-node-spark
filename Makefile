@@ -2,6 +2,7 @@ all: compile
 
 # make flash spark=zSpark
 flash:
+	spark compile . lumiere.bin
 	spark cloud flash $(spark) .
 
 # Requires dfu-util (brew install dfu-util)
@@ -24,8 +25,10 @@ dependencies:
 	rm -rf lib/*
 
 	git clone https://github.com/bblanchon/ArduinoJson.git .tmp/ArduinoJson
+	cd .tmp/ArduinoJson && cmake . && make; cd -;
 	mkdir -p lib/ArduinoJson
-	cp -v .tmp/ArduinoJson/JsonParser/{*.cpp,*.h} lib/ArduinoJson/
+	cp -rv .tmp/ArduinoJson/include lib/ArduinoJson/
+	cp -rv .tmp/ArduinoJson/lib lib/ArduinoJson/
 	rm -rf .tmp/ArduinoJson
 
 	git clone https://github.com/nmattisson/HttpClient.git .tmp/HttpClient

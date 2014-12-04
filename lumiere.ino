@@ -1,8 +1,7 @@
 // Libs
 #include "HttpClient.h"
-#include "JsonParser.h"
+#include "lib/ArduinoJson/src/ArduinoJson.h"
 #include "neopixel.h"
-using namespace ArduinoJson::Parser;
 
 
 /**********************
@@ -26,21 +25,14 @@ using namespace ArduinoJson::Parser;
 #define POLL_TIME 3000
 // Color input limt for API
 //#define INPUT_LIMIT PIXEL_COUNT
-#define INPUT_LIMIT 15
-// Host of server
-#define API_HOST "lumiere.lighting"
-// Port of server
-#define API_PORT 80
-
+#define INPUT_LIMIT 5
 
 
 
 // Global vars
-JsonParser<64> parser;
-String api_path = "/api/colors?format=rgb&noInput=true&limit=" + String(INPUT_LIMIT);
+JsonParser<40> parser;
 String current_id;
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);
-double animation_interval = ANIMATION_TIME / PIXEL_COUNT;
 
 // HTTP requests
 // NOTE: Always terminate headers with NULL
@@ -64,9 +56,9 @@ void setup() {
 void loop() {
 
   // Make request
-  request.hostname = API_HOST;
-  request.port = API_PORT;
-  request.path = api_path;
+  request.hostname = "lumiere.lighting";
+  request.port = 80;
+  request.path = "/api/colors?format=rgb&noInput=true&limit=" + String(INPUT_LIMIT);
   http.get(request, response, headers);
 
   // Ensure it is good.
@@ -108,7 +100,7 @@ void loop() {
           // Reset lights
           for (int j = PIXEL_COUNT - 1; j >= 0; j--) {
             strip.setPixelColor(j, strip.Color(0, 0, 0));
-            delay(animation_interval);
+            delay(1000 / PIXEL_COUNT);
             strip.show();
           }
 
@@ -116,7 +108,7 @@ void loop() {
           for (int j = 0; j < PIXEL_COUNT; j++) {
             JsonValue c = parsed["colors"][j % color_set_count];
             strip.setPixelColor(j, strip.Color(int(double(c[0])), int(double(c[1])), int(double(c[2]))));
-            delay(animation_interval);
+            delay(1000 / PIXEL_COUNT);
             strip.show();
           }
         }

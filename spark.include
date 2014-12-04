@@ -1,24 +1,8 @@
 lumiere.ino
 
-lib/HttpClient/HttpClient.cpp
 lib/HttpClient/HttpClient.h
 
-lib/ArduinoJson/JsonArray.cpp
-lib/ArduinoJson/JsonArray.h
-lib/ArduinoJson/JsonArrayIterator.h
-lib/ArduinoJson/JsonObject.cpp
-lib/ArduinoJson/JsonObject.h
-lib/ArduinoJson/JsonObjectIterator.h
-lib/ArduinoJson/JsonPair.h
-lib/ArduinoJson/JsonParser.h
-lib/ArduinoJson/JsonParserBase.cpp
-lib/ArduinoJson/JsonParserBase.h
-lib/ArduinoJson/JsonToken.cpp
-lib/ArduinoJson/JsonToken.h
-lib/ArduinoJson/JsonValue.cpp
-lib/ArduinoJson/JsonValue.h
-lib/ArduinoJson/jsmn.cpp
-lib/ArduinoJson/jsmn.h
+lib/ArduinoJson/include/ArduinoJson.h
+lib/ArduinoJson/include/ArduinoJson/JsonArray.hpp
 
 lib/SparkCore-NeoPixel/neopixel.h
-lib/SparkCore-NeoPixel/neopixel.cpp
