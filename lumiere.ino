@@ -1,6 +1,6 @@
 // Libs
 #include "HttpClient.h"
-#include "lib/ArduinoJson/src/ArduinoJson.h"
+#include "ArduinoJson.h"
 #include "neopixel.h"
 
 

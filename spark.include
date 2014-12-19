@@ -2,7 +2,28 @@ lumiere.ino
 
 lib/HttpClient/HttpClient.h
 
-lib/ArduinoJson/include/ArduinoJson.h
-lib/ArduinoJson/include/ArduinoJson/JsonArray.hpp
+lib/ArduinoJson/ArduinoJson.h
+lib/ArduinoJson/JsonArray.hpp
+lib/ArduinoJson/JsonBuffer.hpp
+lib/ArduinoJson/JsonObject.hpp
+lib/ArduinoJson/JsonPair.hpp
+lib/ArduinoJson/JsonVariant.hpp
+lib/ArduinoJson/StaticJsonBuffer.hpp
+lib/ArduinoJson/Print.hpp
+lib/ArduinoJson/IndentedPrint.hpp
+lib/ArduinoJson/JsonParser.hpp
+lib/ArduinoJson/JsonPrintable.hpp
+lib/ArduinoJson/JsonVariantContent.hpp
+lib/ArduinoJson/JsonVariantType.hpp
+lib/ArduinoJson/JsonWriter.hpp
+lib/ArduinoJson/List.hpp
+lib/ArduinoJson/ListConstIterator.hpp
+lib/ArduinoJson/ListIterator.hpp
+lib/ArduinoJson/ListNode.hpp
+lib/ArduinoJson/PlacementNew.hpp
+lib/ArduinoJson/Prettyfier.hpp
+lib/ArduinoJson/QuotedString.hpp
+lib/ArduinoJson/ReferenceType.hpp
+lib/ArduinoJson/StringBuilder.hpp
 
 lib/SparkCore-NeoPixel/neopixel.h
