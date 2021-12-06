@@ -1,3 +1,5 @@
+**DEPRECATED.  See `lumiere-client-*` projects.**
+
 # Lumiere with SparkCore
 
 Lumiere node using the Spark Core.
